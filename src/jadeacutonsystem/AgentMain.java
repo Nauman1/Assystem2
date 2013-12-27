@@ -6,6 +6,7 @@ package jadeacutonsystem;
 
 import jade.core.AID;
 import jade.core.Agent;
+import jade.domain.introspection.ACLMessage;
 import jade.wrapper.StaleProxyException;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import sun.awt.geom.Crossings;
@@ -20,10 +21,11 @@ public class AgentMain extends Agent {
 
     @Override
     public void setup() {
+        AID childaid = null;
         Object[] ob = new Object[10];
         ob = this.getArguments();
         //  if it was not clone its first time crated
-        if (ob.length < 1|| ob == null) {
+        if (ob.length < 1 || ob == null) {
             String cloneaggentname = "clone-" + this.getLocalName();
             evs.setParentAID(this.getAID());
             evs.setParentname(this.getName());
@@ -35,12 +37,13 @@ public class AgentMain extends Agent {
             } catch (StaleProxyException ex) {
                 System.out.println(ex);
             }
-        }
-        else{
-        
-        
-        
-        
+            //////////////////////////////////////////////// RECEIVE FOR CLONED MSG REPLY
+            jade.lang.acl.ACLMessage receiveingacl = blockingReceive();
+            if (receiveingacl.getContent().equals("ChildAid")) {
+                childaid = receiveingacl.getSender();
+                System.out.println(childaid.toString());            }
+
+        } else {
         }
     }
 
