@@ -44,6 +44,7 @@ public class AgentMain extends Agent {
                 System.out.println(childaid.toString());            }
 
         } else {
+            System.out.println("I am else part");
         }
     }
 
