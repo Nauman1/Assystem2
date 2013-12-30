@@ -5,7 +5,9 @@
 package jadeacutonsystem;
 
 import jade.core.AID;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -18,6 +20,7 @@ public class EnviormentalStates {
     private List BidderList;
     private String parentname;
     private AID ParentAID;
+    private Map<String, List> AgentRegister = new HashMap<String, List>();
 
     /**
      * @return the MaxAuctionBid
@@ -88,4 +91,28 @@ public class EnviormentalStates {
     public void setParentAID(AID ParentAID) {
         this.ParentAID = ParentAID;
     }
+
+    /**
+     * @return the AgentRegister
+     */
+    public Map<String, List> getAgentRegister() {
+        return AgentRegister;
+    }
+
+    /**
+     * @param aAgentRegister the AgentRegister to set
+     */
+    public void setAgentRegister(Map<String, List> aAgentRegister) {
+        AgentRegister = aAgentRegister;
+    }
+
+    public void setRegisterAgent(String s, List agentdetails) {
+        this.AgentRegister.put(s, agentdetails);
+    }
+
+    public List getRegisterAgent(Object Key) {
+        List temp = this.AgentRegister.get(Key);
+        return temp;
+    }
+
 }
