@@ -14,6 +14,8 @@ import jade.core.AID;
  */
 public class AgentState {
     private AID myAid ;
+    private AID ParentID;
+    private String ParentName;
     private String Myname;
     private int mymoney;
     private int mylastbid;
@@ -72,6 +74,34 @@ public class AgentState {
      */
     public void setMylastbid(int mylastbid) {
         this.mylastbid = mylastbid;
+    }
+
+    /**
+     * @return the ParentID
+     */
+    public AID getParentID() {
+        return ParentID;
+    }
+
+    /**
+     * @param ParentID the ParentID to set
+     */
+    public void setParentID(AID ParentID) {
+        this.ParentID = ParentID;
+    }
+
+    /**
+     * @return the ParentName
+     */
+    public String getParentName() {
+        return ParentName;
+    }
+
+    /**
+     * @param ParentName the ParentName to set
+     */
+    public void setParentName(String ParentName) {
+        this.ParentName = ParentName;
     }
     
     

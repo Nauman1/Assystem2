@@ -8,6 +8,7 @@ package jadeacutonsystem;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
+import jade.wrapper.StaleProxyException;
 import java.util.Random;
 
 /**
@@ -15,18 +16,45 @@ import java.util.Random;
  * @author Sono
  */
 public class BidderAgent extends Agent {
-
+AID childaid;
+String cloneagentname;
     int Arglenght = this.getArguments().length;
 
     public void setup() {
+        cloneagentname = "Clone-"+this.getLocalName();
         if (Arglenght <= 0) {
             AgentState ags = new AgentState();
             ags.setMyAid(this.getAID());
             ags.setMyname(this.getLocalName());
             ags.setMymoney(randomnumber(10000, 50000));
             System.out.print(ags.getMymoney());
-            ACLMessage acl = blockingReceive();
+             Object[] StatesArgumetns = new Object[10];
+            StatesArgumetns[0] = (Object) ags;
+            if (StatesArgumetns.length<=0){
             
+            
+             try {
+                // Create clone agent
+                this.getContainerController().createNewAgent(cloneagentname, "jadeacutonsystem.CloneAgentMain", StatesArgumetns).start();
+            } catch (StaleProxyException ex) {
+                System.out.println(ex);
+            }
+              //////////////////////////////////////////////// RECEIVE FOR CLONED MSG REPLY
+             jade.lang.acl.ACLMessage receiveingacl = blockingReceive();
+            if (receiveingacl.getContent().equals("ChildAid")) {
+                childaid = receiveingacl.getSender();
+                // registring with main agent
+            getregister(ags.getMyname(), ags.getMyAid(), childaid);
+                System.out.println(childaid.toString());
+            }
+            }
+            else {}
+           
+            
+            // registring with main agent
+            getregister(ags.getMyname(), ags.getMyAid(), childaid);
+            
+            ACLMessage acl = blockingReceive();        
         }
     }
 
@@ -36,8 +64,9 @@ public class BidderAgent extends Agent {
         return i1;
     }
     
-    public void getregister(String name, AID myaid){
+    public void getregister(String name, AID myaid, AID Cloneaid){
     AgentMain am = new AgentMain();
+    am.setregesterAgent(name, myaid, Cloneaid);
     
     
     }

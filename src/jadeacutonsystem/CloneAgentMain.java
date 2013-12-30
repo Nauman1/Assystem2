@@ -6,6 +6,9 @@ package jadeacutonsystem;
 
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.UnreadableException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -26,7 +29,16 @@ public class CloneAgentMain extends Agent {
         msg.addReceiver(ev.getParentAID());
         send(msg);
         msg = blockingReceive();
+        if (msg.getPerformative()==ACLMessage.INFORM_REF){
+        try {
+            ev =  (EnviormentalStates) msg.getContentObject();
+        } catch (UnreadableException ex) {
+            Logger.getLogger(CloneAgentMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        else if (msg.getPerformative()==ACLMessage.INFORM){
         
+        }
         
         
     }

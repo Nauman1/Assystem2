@@ -5,6 +5,7 @@
 package jadeacutonsystem;
 
 import jade.core.AID;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
  *
  * @author rizwan
  */
-public class EnviormentalStates {
+public class EnviormentalStates implements Serializable{
 
     private int MaxAuctionBid;
     private String MaxBider;

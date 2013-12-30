@@ -6,10 +6,13 @@ package jadeacutonsystem;
 
 import jade.core.AID;
 import jade.core.Agent;
-import jade.domain.introspection.ACLMessage;
+import jade.lang.acl.ACLMessage;
 import jade.wrapper.StaleProxyException;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-import sun.awt.geom.Crossings;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -34,14 +37,16 @@ public class AgentMain extends Agent {
             try {
                 // Create clone agent
                 this.getContainerController().createNewAgent(cloneaggentname, "jadeacutonsystem.CloneAgentMain", StatesArgumetns).start();
+                System.out.println("Created clone");
             } catch (StaleProxyException ex) {
                 System.out.println(ex);
             }
             //////////////////////////////////////////////// RECEIVE FOR CLONED MSG REPLY
             jade.lang.acl.ACLMessage receiveingacl = blockingReceive();
+            System.out.println("Receive msg");
             if (receiveingacl.getContent().equals("ChildAid")) {
                 childaid = receiveingacl.getSender();
-                System.out.println(childaid.toString());            
+                System.out.println(childaid.toString());
             }
 
         } else {
@@ -51,8 +56,21 @@ public class AgentMain extends Agent {
 
     public void createcvsagents() {
     }
-    public void setregesterAgent(String Name, AID AgentAid){
-    //evs.set
-        
+
+    public void setregesterAgent(String Name1, AID AgentAid, AID cloneaid) throws IOException {
+        List temp = null;
+        temp.set(0, AgentAid);
+        temp.set(1, cloneaid);
+        Map<String, List> agenttoregister = new HashMap<String, List>();
+        evs.setAgentRegister(agenttoregister);
+        updaterequest(evs);
+    }
+
+    public boolean updaterequest(EnviormentalStates es) throws IOException {
+        Object tempab = new Object();
+        tempab = (Object) es;
+        jade.lang.acl.ACLMessage tempacl = new ACLMessage(ACLMessage.INFORM_REF);
+        tempacl.setContentObject(es);
+        return true;
     }
 }
