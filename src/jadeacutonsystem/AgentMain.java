@@ -41,7 +41,8 @@ public class AgentMain extends Agent {
             jade.lang.acl.ACLMessage receiveingacl = blockingReceive();
             if (receiveingacl.getContent().equals("ChildAid")) {
                 childaid = receiveingacl.getSender();
-                System.out.println(childaid.toString());            }
+                System.out.println(childaid.toString());            
+            }
 
         } else {
             System.out.println("I am else part");
@@ -49,5 +50,9 @@ public class AgentMain extends Agent {
     }
 
     public void createcvsagents() {
+    }
+    public void setregesterAgent(String Name, AID AgentAid){
+    //evs.set
+        
     }
 }
