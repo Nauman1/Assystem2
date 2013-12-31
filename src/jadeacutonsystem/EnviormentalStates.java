@@ -21,6 +21,7 @@ public class EnviormentalStates implements Serializable{
     private List BidderList;
     private String parentname;
     private AID ParentAID;
+    private AID cloneID;
     private Map<String, List> AgentRegister = new HashMap<String, List>();
 
     /**
@@ -114,6 +115,20 @@ public class EnviormentalStates implements Serializable{
     public List getRegisterAgent(Object Key) {
         List temp = this.AgentRegister.get(Key);
         return temp;
+    }
+
+    /**
+     * @return the cloneID
+     */
+    public AID getCloneID() {
+        return cloneID;
+    }
+
+    /**
+     * @param cloneID the cloneID to set
+     */
+    public void setCloneID(AID cloneID) {
+        this.cloneID = cloneID;
     }
 
 }

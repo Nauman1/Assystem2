@@ -13,6 +13,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -46,6 +48,12 @@ public class AgentMain extends Agent {
             System.out.println("Receive msg");
             if (receiveingacl.getContent().equals("ChildAid")) {
                 childaid = receiveingacl.getSender();
+                evs.setCloneID(childaid);
+                try {
+                    updaterequest(evs, evs.getCloneID());
+                } catch (IOException ex) {
+                    Logger.getLogger(AgentMain.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 System.out.println(childaid.toString());
             }
 
@@ -56,21 +64,25 @@ public class AgentMain extends Agent {
 
     public void createcvsagents() {
     }
-
+/*
+ * parm cloneaid is id of clone of registering agent while uodateinclone is id clone of agent in this case clone of main
+ * agent
+ *  
+ */
     public void setregesterAgent(String Name1, AID AgentAid, AID cloneaid) throws IOException {
         List temp = null;
         temp.set(0, AgentAid);
         temp.set(1, cloneaid);
         Map<String, List> agenttoregister = new HashMap<String, List>();
         evs.setAgentRegister(agenttoregister);
-        updaterequest(evs);
+        updaterequest(evs, evs.getCloneID());
     }
 
-    public boolean updaterequest(EnviormentalStates es) throws IOException {
-        Object tempab = new Object();
-        tempab = (Object) es;
+    public boolean updaterequest(EnviormentalStates es, AID childaid) throws IOException {
         jade.lang.acl.ACLMessage tempacl = new ACLMessage(ACLMessage.INFORM_REF);
         tempacl.setContentObject(es);
+        tempacl.addReceiver(childaid);
+        send(tempacl);
         return true;
     }
 }

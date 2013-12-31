@@ -32,6 +32,7 @@ public class CloneAgentMain extends Agent {
         if (msg.getPerformative()==ACLMessage.INFORM_REF){
         try {
             ev =  (EnviormentalStates) msg.getContentObject();
+            System.out.println("updated list "+ ev.getCloneID().toString());
         } catch (UnreadableException ex) {
             Logger.getLogger(CloneAgentMain.class.getName()).log(Level.SEVERE, null, ex);
         }

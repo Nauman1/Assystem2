@@ -9,7 +9,10 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.wrapper.StaleProxyException;
+import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,6 +23,7 @@ AID childaid;
 String cloneagentname;
     int Arglenght = this.getArguments().length;
 
+    @Override
     public void setup() {
         cloneagentname = "Clone-"+this.getLocalName();
         if (Arglenght <= 0) {
@@ -35,7 +39,7 @@ String cloneagentname;
             
              try {
                 // Create clone agent
-                this.getContainerController().createNewAgent(cloneagentname, "jadeacutonsystem.CloneAgentMain", StatesArgumetns).start();
+                this.getContainerController().createNewAgent(cloneagentname, "jadeacutonsystem.CloneBidderAgnet", StatesArgumetns).start();
             } catch (StaleProxyException ex) {
                 System.out.println(ex);
             }
@@ -43,17 +47,17 @@ String cloneagentname;
              jade.lang.acl.ACLMessage receiveingacl = blockingReceive();
             if (receiveingacl.getContent().equals("ChildAid")) {
                 childaid = receiveingacl.getSender();
-                // registring with main agent
-            getregister(ags.getMyname(), ags.getMyAid(), childaid);
+                    try {
+                        // registring with main agent
+                    getregister1(ags.getMyname(), ags.getMyAid(), childaid);
+                    } catch (IOException ex) {
+                        Logger.getLogger(BidderAgent.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 System.out.println(childaid.toString());
             }
             }
             else {}
-           
-            
-            // registring with main agent
-            getregister(ags.getMyname(), ags.getMyAid(), childaid);
-            
+        
             ACLMessage acl = blockingReceive();        
         }
     }
@@ -64,7 +68,7 @@ String cloneagentname;
         return i1;
     }
     
-    public void getregister(String name, AID myaid, AID Cloneaid){
+    public void getregister1(String name, AID myaid, AID Cloneaid) throws IOException{
     AgentMain am = new AgentMain();
     am.setregesterAgent(name, myaid, Cloneaid);
     
