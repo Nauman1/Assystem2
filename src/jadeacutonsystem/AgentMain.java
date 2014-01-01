@@ -9,7 +9,6 @@ import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.wrapper.StaleProxyException;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
