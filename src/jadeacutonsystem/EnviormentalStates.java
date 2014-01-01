@@ -5,6 +5,9 @@
 package jadeacutonsystem;
 
 import jade.core.AID;
+import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
+import static jadeacutonsystem.AgentMain.mainagentaid;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +25,7 @@ public class EnviormentalStates implements Serializable{
     private String parentname;
     private AID ParentAID;
     private AID cloneID;
-    private Map<String, List> AgentRegister = new HashMap<String, List>();
+    private static Map<String, List> AgentRegister = new HashMap<String, List>();
 
     /**
      * @return the MaxAuctionBid
@@ -106,6 +109,7 @@ public class EnviormentalStates implements Serializable{
      */
     public void setAgentRegister(Map<String, List> aAgentRegister) {
         AgentRegister = aAgentRegister;
+         
     }
 
     public void setRegisterAgent(String s, List agentdetails) {

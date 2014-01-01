@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package jadeacutonsystem;
 
 import jade.core.AID;
@@ -13,13 +12,16 @@ import jade.core.AID;
  * @author Sono
  */
 public class AgentState {
-    private AID myAid ;
+
+    private AID myAid;
    // private AID ParentID;
-   // private String ParentName;
+    // private String ParentName;
+    private AID mainagent;
     private String Myname;
     private int mymoney;
     private int mylastbid;
-private AID cloneAid;
+    private AID cloneAid;
+
     /**
      * @return the myAid
      */
@@ -91,10 +93,23 @@ private AID cloneAid;
     }
 
     /**
+     * @return the mainagent
+     */
+    public AID getMainagent() {
+        return mainagent;
+    }
+
+    /**
+     * @param mainagent the mainagent to set
+     */
+    public void setMainagent(AID mainagent) {
+        this.mainagent = mainagent;
+    }
+
+    /**
      * @return the ParentID
      */
 //  s
-
     /**
      * @param ParentName the ParentName to set
      */
@@ -102,5 +117,4 @@ private AID cloneAid;
 //        this.ParentName = ParentName;
 //    }
 //    
-    
 }

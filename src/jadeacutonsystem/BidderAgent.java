@@ -31,6 +31,7 @@ String cloneagentname;
             AgentState ags = new AgentState();
             ags.setMyAid(this.getAID());
             ags.setMyname(this.getLocalName());
+            ags.setMainagent(AgentMain.mainagentaid);
             ags.setMymoney(randomnumber(10000, 5000));
             System.out.print(ags.getMymoney());
              Object[] StatesArgumetns = new Object[10];
@@ -52,11 +53,18 @@ String cloneagentname;
                     } catch (IOException ex) {
                         Logger.getLogger(BidderAgent.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                System.out.println(childaid.toString());
+               // System.out.println(childaid.toString());
             }
             
             else {}
-        // Again listen from main agent to bid................. [2m]
+            if (AgentMain.founderflag == -1){
+                //if its first bidder .......................... [2m]
+            ACLMessage ac = new ACLMessage(ACLMessage.INFORM);
+            ac.setContent("thisahfkjdsf");
+            ac.addReceiver(ags.getMainagent());
+            send(ac);
+            }
+        // Again listen from main agent to bid................. [3m]
             ACLMessage acl = blockingReceive();        
         
         }
