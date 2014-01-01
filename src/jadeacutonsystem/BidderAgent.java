@@ -41,7 +41,7 @@ String cloneagentname;
             } catch (StaleProxyException ex) {
                 System.out.println(ex);
             }
-              //////////////////////////////////////////////// RECEIVE FOR CLONED MSG REPLY
+              //////////////////////////////////////////////// RECEIVE FOR CLONED MSG REPLY...[1]
              jade.lang.acl.ACLMessage receiveingacl = blockingReceive();
             if (receiveingacl.getContent().equals("ChildAid")) {
                 childaid = receiveingacl.getSender();
@@ -56,8 +56,9 @@ String cloneagentname;
             }
             
             else {}
-        
+        // Again listen from main agent to bid................. [2m]
             ACLMessage acl = blockingReceive();        
+        
         }
     }
 

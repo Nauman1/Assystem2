@@ -20,10 +20,12 @@ public class CloneBidderAgnet extends Agent {
    Arguments  = (Object)this.getArguments()[0];
    AgentState as = new AgentState();
    as = (AgentState) Arguments;
+   // msg sending child AID.......... [1]
     ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
         msg.setContent("ChildAid");
         msg.addReceiver(as.getMyAid());
         send(msg);
+        /////// wait for update from cloned 
         msg = blockingReceive();
     }
 }
