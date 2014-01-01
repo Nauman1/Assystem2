@@ -10,6 +10,7 @@ import jade.lang.acl.ACLMessage;
 import jade.wrapper.StaleProxyException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,10 +71,13 @@ public class AgentMain extends Agent {
  *  
  */
     public void setregesterAgent(String Name1, AID AgentAid, AID cloneaid) throws IOException {
-        List temp = null;
-        temp.set(0, AgentAid);
-        temp.set(1, cloneaid);
+        List<AID> temp = new ArrayList<AID>();
+       
+        temp.add(0, AgentAid);
+        temp.add(1, cloneaid);
+        
         Map<String, List> agenttoregister = new HashMap<String, List>();
+        agenttoregister.put(Name1, temp);
         evs.setAgentRegister(agenttoregister);
         updaterequest(evs, evs.getCloneID());
     }

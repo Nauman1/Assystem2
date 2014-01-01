@@ -19,24 +19,22 @@ import java.util.logging.Logger;
  * @author Sono
  */
 public class BidderAgent extends Agent {
-AID childaid;
-String cloneagentname;
-    int Arglenght = this.getArguments().length;
+
 
     @Override
     public void setup() {
+        AID childaid;
+String cloneagentname;
+    int Arglenght = this.getArguments().length;
         cloneagentname = "Clone-"+this.getLocalName();
         if (Arglenght <= 0) {
             AgentState ags = new AgentState();
             ags.setMyAid(this.getAID());
             ags.setMyname(this.getLocalName());
-            ags.setMymoney(randomnumber(10000, 50000));
+            ags.setMymoney(randomnumber(10000, 5000));
             System.out.print(ags.getMymoney());
              Object[] StatesArgumetns = new Object[10];
-            StatesArgumetns[0] = (Object) ags;
-            if (StatesArgumetns.length<=0){
-            
-            
+            StatesArgumetns[0] = (Object) ags;        
              try {
                 // Create clone agent
                 this.getContainerController().createNewAgent(cloneagentname, "jadeacutonsystem.CloneBidderAgnet", StatesArgumetns).start();
@@ -47,15 +45,16 @@ String cloneagentname;
              jade.lang.acl.ACLMessage receiveingacl = blockingReceive();
             if (receiveingacl.getContent().equals("ChildAid")) {
                 childaid = receiveingacl.getSender();
+                ags.setCloneAid(childaid);
                     try {
                         // registring with main agent
-                    getregister1(ags.getMyname(), ags.getMyAid(), childaid);
+                    getregister1(ags.getMyname(), ags.getMyAid(), ags.getCloneAid());
                     } catch (IOException ex) {
                         Logger.getLogger(BidderAgent.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 System.out.println(childaid.toString());
             }
-            }
+            
             else {}
         
             ACLMessage acl = blockingReceive();        

@@ -14,12 +14,12 @@ import jade.core.AID;
  */
 public class AgentState {
     private AID myAid ;
-    private AID ParentID;
-    private String ParentName;
+   // private AID ParentID;
+   // private String ParentName;
     private String Myname;
     private int mymoney;
     private int mylastbid;
-
+private AID cloneAid;
     /**
      * @return the myAid
      */
@@ -77,32 +77,30 @@ public class AgentState {
     }
 
     /**
+     * @return the cloneAid
+     */
+    public AID getCloneAid() {
+        return cloneAid;
+    }
+
+    /**
+     * @param cloneAid the cloneAid to set
+     */
+    public void setCloneAid(AID cloneAid) {
+        this.cloneAid = cloneAid;
+    }
+
+    /**
      * @return the ParentID
      */
-    public AID getParentID() {
-        return ParentID;
-    }
-
-    /**
-     * @param ParentID the ParentID to set
-     */
-    public void setParentID(AID ParentID) {
-        this.ParentID = ParentID;
-    }
-
-    /**
-     * @return the ParentName
-     */
-    public String getParentName() {
-        return ParentName;
-    }
+//  s
 
     /**
      * @param ParentName the ParentName to set
      */
-    public void setParentName(String ParentName) {
-        this.ParentName = ParentName;
-    }
-    
+//    public void setParentName(String ParentName) {
+//        this.ParentName = ParentName;
+//    }
+//    
     
 }
