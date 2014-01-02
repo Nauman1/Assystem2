@@ -6,12 +6,13 @@
 package jadeacutonsystem;
 
 import jade.core.AID;
+import java.io.Serializable;
 
 /**
  *
  * @author Sono
  */
-public class AgentState {
+public class AgentState implements Serializable{
 
     private AID myAid;
    // private AID ParentID;
