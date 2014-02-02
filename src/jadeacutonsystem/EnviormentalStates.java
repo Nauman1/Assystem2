@@ -5,40 +5,41 @@
 package jadeacutonsystem;
 
 import jade.core.AID;
-import jade.core.Agent;
-import jade.lang.acl.ACLMessage;
-import static jadeacutonsystem.AgentMain.mainagentaid;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 
 /**
  *
  * @author rizwan
  */
-public class EnviormentalStates implements Serializable{
+public class EnviormentalStates implements Serializable {
 
-    private int MaxAuctionBid;
+    private static int MaxAuctionBid;
     private String MaxBider;
     private List BidderList;
     private String parentname;
     private AID ParentAID;
     private AID cloneID;
-    private static Map<String, List> AgentRegister = new HashMap<String, List>();
+    static private  Map<String, List> AgentRegister = new ConcurrentHashMap<String, List>();
+    static public final Object locker = new Object();
 
     /**
      * @return the MaxAuctionBid
      */
-    public int getMaxAuctionBid() {
+    public static int getMaxAuctionBid() {
         return MaxAuctionBid;
     }
 
     /**
      * @param MaxAuctionBid the MaxAuctionBid to set
      */
-    public void setMaxAuctionBid(int MaxAuctionBid) {
-        this.MaxAuctionBid = MaxAuctionBid;
+    public static void setMaxAuctionBid(int MaxAuctionBid) {
+        EnviormentalStates.MaxAuctionBid = MaxAuctionBid;
     }
 
     /**
@@ -100,24 +101,33 @@ public class EnviormentalStates implements Serializable{
     /**
      * @return the AgentRegister
      */
-    public Map<String, List> getAgentRegister() {
+    public static  Map<String, List> getAgentRegister() {
+ synchronized(locker){
         return AgentRegister;
-    }
+    }}
+    
+    public int getAgentregisterlenght(){
+        synchronized(locker){
+    return AgentRegister.size();
+    }}
 
     /**
      * @param aAgentRegister the AgentRegister to set
      */
-    public void setAgentRegister(Map<String, List> aAgentRegister) {
-        AgentRegister = aAgentRegister;
-         
-    }
+//    public void setAgentRegister(Map<String, List> aAgentRegister) {
+//        EnviormentalStates.AgentRegister = aAgentRegister;
+//
+//    }
 
     public void setRegisterAgent(String s, List agentdetails) {
+        synchronized(locker){
         this.AgentRegister.put(s, agentdetails);
-    }
+    }}
 
     public List getRegisterAgent(Object Key) {
-        List temp = this.AgentRegister.get(Key);
+        List temp;
+        synchronized(locker){
+         temp = this.AgentRegister.get(Key);}
         return temp;
     }
 
@@ -135,4 +145,13 @@ public class EnviormentalStates implements Serializable{
         this.cloneID = cloneID;
     }
 
+    public void unregisterAgent(String key) {
+         synchronized(locker){
+        AgentRegister.remove(key);
+    }
+    }
+    public Set<Entry<String, List>> getentryAgentRegister(){
+        synchronized(locker){
+    return AgentRegister.entrySet();
+    }}
 }
